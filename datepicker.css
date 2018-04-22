@@ -1,0 +1,118 @@
+.datepicker_background{
+	background: #868686;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+.datepicker_wrapper{
+	position: relative;
+	width: 300px;
+	height: 450px;
+	margin: auto;
+	padding: auto;
+	background: #fff;
+}
+.datepicker_top_wrapper{
+	background: #f06187;
+	width: 100%;
+	height: 35%;
+	color: #fff;
+}
+.datepicker_year{
+	text-align: center;
+	margin: 15px 20px;
+	border-bottom: solid thin #fff;
+}
+.datepicker_year_input{
+	background: #f06187;
+	color: #fff;
+	border: none;
+	font-size: 40pt;
+	width: 145px;
+	font-weight: 900;
+}
+.datepicker_day_wrapper{
+	margin: 0px 20px;
+	font-size: 30px;
+}
+.datepicker_day_name{
+	font-weight: 300;
+	float: left;
+	width: 60%;
+	text-align: center;
+	vertical-align: middle;
+	margin: 5% 0;
+}
+.datepicker_day_number{
+	font-size: 40pt;
+	font-weight: 900;
+	float: left;
+	width: 20%;
+	text-align: center;
+}
+.datepicker_month_wrapper{
+	margin: 15px 20px;
+}
+.datepicker_month_left_selector , .datepicker_month_right_selector  {
+	float: left;
+	width: 30%;
+	text-align: center;
+}
+
+.datepicker_month_name{
+	float: left;
+	width: 40%;
+	text-align: center;
+	font-weight: 900;
+}
+.month_select_control{
+	width: 20px;
+	height: 20px;
+	color: #fff;
+	border-radius: 50%;
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	background: #f06187;
+	cursor: pointer;
+}
+.datepicker_month_week_day, .datepicker_month_day_control{
+	width: 14.28%;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+}
+.datepicker_month_days_wrapper{
+	font-size: 12px;
+	margin: 15px 0;
+	float: left;
+	width: 100%;
+	border-bottom: solid thin;
+	padding: 0 0 10px 0;
+}
+.datepicker_month_days_numbers_wrapper{
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+}
+.datepicker_month_day_control{
+	margin: 5px 0;
+	font-size: 13px;
+	cursor: pointer;
+}
+.datepicker_start_date, .datepicker_end_date{
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+	margin: 5px 0;
+	display: inline-block;
+	font-size: 13px;
+}
+.date_title{
+	font-weight: 900;
+}
