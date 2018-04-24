@@ -5,7 +5,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	font-family: 'Roboto', sans-serif;
+	font-family:"Roboto","Helvetica","Arial",sans-serif;
 	font-weight: 300;
 }
 
@@ -33,7 +33,7 @@
 	color: #fff;
 	border: none;
 	font-size: 40pt;
-	width: 145px;
+	width: 165px;
 	font-weight: 900;
 }
 .datepicker_day_wrapper{
@@ -115,4 +115,56 @@
 }
 .date_title{
 	font-weight: 900;
+}
+
+.select-items {
+  position: absolute;
+  background-color: #ffffff;
+  color: #000000;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  font-size:15px;
+}
+.datepicker_wrapper .active span{
+	position: relative;
+}
+
+.datepicker_wrapper .active span:after {
+  content:attr(data-badge);
+
+  position:absolute;
+  top:-2px;
+  left:-4px;
+
+  font-size:11px;
+  font-family:"Roboto","Helvetica","Arial",sans-serif;
+  font-weight:600;
+
+  text-align:center;
+  line-height:23px;
+
+  background:#f06187;
+  color:#ffffff;
+
+  width:22px;
+  height:22px;           
+
+  border-radius:50%;
+  /* box-shadow:1px 2px 5px #888; */
+}
+
+.datepicker_close_button{
+	position: absolute;
+    background: #000;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    vertical-align: middle;
+    color: #fff;
+    text-align: center;
+    top: -10px;
+    right: -10px;
+    font-weight: 600;
 }
