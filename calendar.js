@@ -38,6 +38,10 @@ var datepicker_ui_control = function(options){
         $(".datepicker_top_wrapper").append($('<div>', {class: 'datepicker_year'}));
         $(".datepicker_year").append($('<input type="text" class="datepicker_year_input">'));
         $(".datepicker_year_input").val(currentYear);
+        $(".datepicker_year_input").keyup(function(e){
+             this.value = this.value.replace(/\D/g, '');
+             
+        });
 
         $(".datepicker_top_wrapper").append($('<div>', {class: 'datepicker_day_wrapper'}));
         $(".datepicker_day_wrapper").append($('<div>', {class: 'datepicker_day_name'}));
@@ -139,4 +143,15 @@ var datepicker_ui_control = function(options){
      */
     this.construct(options);
 
+}
+
+function validate(evt) {
+  var theEvent = evt || window.event;
+  var key = theEvent.keyCode || theEvent.which;
+  key = String.fromCharCode( key );
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
 }
