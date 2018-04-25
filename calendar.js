@@ -18,6 +18,8 @@ var datepicker_ui_control = function(options){
     var step = 0;
     var minDate;
     var maxDate;
+    var startDateInput;
+    var endDateInput;
     var vars = {
         myVar  : 'original Value'
     };
@@ -34,9 +36,11 @@ var datepicker_ui_control = function(options){
      */
     this.construct = function(options){
 
-        minDate = new Date(options.minDate);
-        maxDate = new Date(options.maxDate);
+        startDateInput = $(options.startDateInput);
+        endDateInput = $(options.endDateInput);
 
+//        minDate = (options.minDate == null) ? new Date():new Date(options.minDate);
+//        maxDate = (options.maxDate == null) ? new Date():new Date(options.maxDate);
         currentDate = new Date();
         currentYear = new Date().getFullYear();
         currentDay = new Date().getDay();
@@ -45,19 +49,30 @@ var datepicker_ui_control = function(options){
 
         $.extend(vars , options);
         $("body").append("<div class='datepicker_background'></div>");
+        $(".datepicker_background").click(function(e){
+            e.preventDefault();
+        });
+        $(".datepicker_background").hide();
         $(".datepicker_background").append($('<div>', {class: 'datepicker_wrapper'}));
         $(".datepicker_wrapper").append($('<div>', {class: 'datepicker_top_wrapper'}));
         // CLOSE BUTTON
         $(".datepicker_wrapper").append($('<div>', {class: 'datepicker_close_button'}));
         $(".datepicker_close_button").html("x");
+        $(".datepicker_close_button").click(function(){
+            closeControl();
+        });
 
         $(".datepicker_top_wrapper").append($('<div>', {class: 'datepicker_year'}));
 
         $(".datepicker_year").append($('<select class="datepicker_year_input">'));
+ //       var tmpyear = currentYear+50;
         var tmpyear = currentYear+50;
-        for (var yi = 0; yi < 100; yi++)
+        for (var yi = 0; yi < 51; yi++)
         {
-             $(".datepicker_year_input").append($('<option>', {value: tmpyear, text: tmpyear, class: "select-items"}));
+            if (tmpyear == currentYear)
+                $(".datepicker_year_input").append($('<option>', {value: tmpyear, text: tmpyear, class: "select-items",selected : true}));
+            else
+                $(".datepicker_year_input").append($('<option>', {value: tmpyear, text: tmpyear, class: "select-items"}));
              tmpyear--;
         }
         $(".datepicker_year_input").change(function(){
@@ -84,6 +99,7 @@ var datepicker_ui_control = function(options){
 
         $(".datepicker_month_wrapper").append($('<div>', {class: 'datepicker_month_name'}));
         $(".datepicker_month_name").html(monthsName[currentMonth]);
+
         /* RIGHT MONTH SELECTOR */
         $(".datepicker_month_wrapper").append($('<div>', {class: 'datepicker_month_right_selector'}));
         $(".datepicker_month_right_selector").html("<span class='month_select_control'>></span>");
@@ -103,6 +119,7 @@ var datepicker_ui_control = function(options){
 
 
         $(".datepicker_month_wrapper").append($('<div>', {class: 'datepicker_month_days_numbers_wrapper'}));
+        
         changeMonth(currentYear, currentMonth);
 
         $(".datepicker_month_wrapper").append($('<div>', {class: 'datepicker_start_date'}));
@@ -110,7 +127,6 @@ var datepicker_ui_control = function(options){
 
         $(".datepicker_month_wrapper").append($('<div>', {class: 'datepicker_end_date'}));
         $(".datepicker_end_date").html("<span class='date_title'>End Date:</span>");
-
     };
 
 
@@ -144,8 +160,7 @@ var datepicker_ui_control = function(options){
      * This function update date
      */
     var updateDate = function(tmpDate){
-
-        if(tmpDate > minDate & tmpDate < maxDate){
+        //Validation to minDate and maxDate
             currentYear = tmpDate.getFullYear();
             currentMonth = tmpDate.getMonth();
             currentDay = tmpDate.getDay();
@@ -154,7 +169,6 @@ var datepicker_ui_control = function(options){
             $(".datepicker_day_name").html(weekDay[currentDay]);
             $(".datepicker_day_number").html(currentDayNumber);
             $(".datepicker_year_input").val(currentYear);
-        }
     };
 
     var selectDate = function(tmpDate , day){
@@ -163,16 +177,26 @@ var datepicker_ui_control = function(options){
             startDate = tmpDate;
             startCtrl = $(day);
               $(".datepicker_start_date").html("<span class='date_title'>Start Date:</span> "+tmpDate.toDateString());
+            $(startDateInput).val(currentYear+"-"+currentMonth+"-"+currentDayNumber);
         }else if(step == 1){
             $(endCtrl).removeClass("active");
             endDate = tmpDate;
             endCtrl = $(day);
             $(".datepicker_end_date").html("<span class='date_title'>End Date:</span> "+tmpDate.toDateString());
+            $(endDateInput).val(currentYear+"-"+currentMonth+"-"+currentDayNumber);
         }
         $(day).addClass("active");
         step++;
         if (step == 2) { step=0;};
     };
+
+    this.showControl = function(){
+         $(".datepicker_background").slideDown();
+    }
+
+    var closeControl = function(){
+        $(".datepicker_background").slideUp();   
+    }
  
     /*
      * Public method
@@ -199,3 +223,4 @@ var datepicker_ui_control = function(options){
     this.construct(options);
 
 }
+

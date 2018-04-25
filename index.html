@@ -10,12 +10,18 @@
 </head>
 <body>
 
+	<input type="text" class="startdateinput" />
+	<input type="text" class="enddateinput" />
+
 
 
 
 <script src="calendar.js" ></script>
 <script>
-	var datepicker = new datepicker_ui_control({minDate:"2015-03-25"});
+	var datepicker = new datepicker_ui_control({startDateInput:".startdateinput",endDateInput:".enddateinput"});
+	$(".startdateinput").click(function(){
+		datepicker.showControl();
+	});
 </script>
 </body>
 </html>
