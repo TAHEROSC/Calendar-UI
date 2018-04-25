@@ -3,6 +3,7 @@ var datepicker_ui_control = function(options){
      * Variables accessible
      * in the class
      */
+    var currentDate;
     var currentYear;
     var currentDay;
     var currentDayNumber;
@@ -15,7 +16,8 @@ var datepicker_ui_control = function(options){
     var endDate = "";
     var endCtrl;
     var step = 0;
-    var limitDate;
+    var minDate;
+    var maxDate;
     var vars = {
         myVar  : 'original Value'
     };
@@ -32,8 +34,10 @@ var datepicker_ui_control = function(options){
      */
     this.construct = function(options){
 
-        //limitDate = new Date(options.limitDate);
+        minDate = new Date(options.minDate);
+        maxDate = new Date(options.maxDate);
 
+        currentDate = new Date();
         currentYear = new Date().getFullYear();
         currentDay = new Date().getDay();
         currentDayNumber = new Date().getDate();
@@ -136,14 +140,21 @@ var datepicker_ui_control = function(options){
         });
     };
 
+     /*
+     * This function update date
+     */
     var updateDate = function(tmpDate){
-        currentYear = tmpDate.getFullYear();
-        currentMonth = tmpDate.getMonth();
-        currentDay = tmpDate.getDay();
-        currentDayNumber = tmpDate.getDate();
-        $(".datepicker_day_name").html(weekDay[currentDay]);
-        $(".datepicker_day_number").html(currentDayNumber);
-         $(".datepicker_year_input").val(currentYear);
+
+        if(tmpDate > minDate & tmpDate < maxDate){
+            currentYear = tmpDate.getFullYear();
+            currentMonth = tmpDate.getMonth();
+            currentDay = tmpDate.getDay();
+            currentDayNumber = tmpDate.getDate();
+
+            $(".datepicker_day_name").html(weekDay[currentDay]);
+            $(".datepicker_day_number").html(currentDayNumber);
+            $(".datepicker_year_input").val(currentYear);
+        }
     };
 
     var selectDate = function(tmpDate , day){
