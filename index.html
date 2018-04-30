@@ -20,8 +20,261 @@
 <script>
 	var datepicker = new datepicker_ui_control({startDateInput:".startdateinput",endDateInput:".enddateinput"});
 	$(".startdateinput").click(function(){
-		datepicker.showControl();
+		datepicker.showControl(".startdateinput",".enddateinput");
 	});
 </script>
 </body>
 </html>
+
+
+<script type="text/javascript"> 
+/*
+jQuery(document).ready(function(){
+var datepicker = new datepicker_ui_control({startDateInput:".meeting-dates input[name=meeting-from]",endDateInput:".meeting-dates input[name=meeting-to]"});
+jQuery(".meeting-dates input[name=meeting-from]").focus(function(){
+	datepicker.showControl(".meeting-dates input[name=meeting-from]",".meeting-dates input[name=meeting-to]");
+});
+jQuery(".meeting-dates input[name=meeting-from]").click(function(){
+	datepicker.showControl(".meeting-dates input[name=meeting-from]",".meeting-dates input[name=meeting-to]");
+});
+jQuery(".meeting-dates input[name=meeting-to]").focus(function(){
+	datepicker.showControl(".meeting-dates input[name=meeting-from]",".meeting-dates input[name=meeting-to]");
+});
+jQuery(".meeting-dates input[name=meeting-to]").click(function(){
+	datepicker.showControl(".meeting-dates input[name=meeting-from]",".meeting-dates input[name=meeting-to]");
+});
+
+jQuery(".meeting-dates input[name=option-from]").focus(function(){
+	datepicker.showControl(".meeting-dates input[name=option-from]",".meeting-dates input[name=option-to]");
+});
+jQuery(".meeting-dates input[name=option-from]").click(function(){
+	datepicker.showControl(".meeting-dates input[name=option-from]",".meeting-dates input[name=option-to]");
+});
+jQuery(".meeting-dates input[name=option-to]").focus(function(){
+	datepicker.showControl(".meeting-dates input[name=option-from]",".meeting-dates input[name=option-to]");
+});
+jQuery(".meeting-dates input[name=option-to]").click(function(){
+	datepicker.showControl(".meeting-dates input[name=option-from]",".meeting-dates input[name=option-to]");
+});
+*/
+}); </script>
+
+
+
+<style>
+.my-cart .checkout, .my-cart-wrap .title {
+    background: #FF0000 !important;
+}
+div#commerce-order-comment-text-add-more-wrapper label {
+    display: none;
+}
+#zone-header-wrapper #zone-header #region-header-first .top-header {
+    margin-top: 5px;
+}
+.logo {
+    text-align: center;
+}
+.logo a.email, 
+.logo a.phone{
+    background-color: #2F5982;
+    color: #FFFFFF;
+    display: inline-block;
+    padding: 3px 8px 2px;
+    text-decoration: none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    behavior: url(/sites/all/libraries/PIE/PIE.htc);
+    margin-top: 8px;
+}
+</style>
+<?php 
+  //get cart contents
+ global $user;
+  $order = commerce_cart_order_load($user->uid);
+  $cart_items = array();
+  foreach ($order->commerce_line_items[LANGUAGE_NONE] as $line_item) {
+      $cart_items[] = commerce_line_item_load($line_item['line_item_id']);
+  }
+  $itemCount = 0;
+  $totalPrice = 0;
+  if(count($cart_items) > 0){
+    foreach($cart_items as $itm){
+      $itemCount += $itm->quantity;
+      $totalPrice += $itm->commerce_total['und'][0]['amount']/100.0;
+    }  
+  }   
+  //print_r($cart_items);
+ ?>
+<div class="logo">
+     <a href="/" rel="home"><img src="/sites/all/themes/menzies/img/logo-2x.png" alt="Menzies Metal Logo" /></a>
+     <br/>
+     <a class="phone" href="tel:18006658840"><i class="icon icon-phone"></i> 1-800-665-8840</a><br/>
+     <a class="email" href="/contact-us">Contact Us</a>
+</div>
+
+<div class='fs-logo-wrapper'>
+    <div class='fs-logo-inner'><span class="inner-star">*</span><img src='/sites/default/files/free-shipping-icon.png' alt="Free Shipping Logo" class='fs-logo' /></div> 
+</div>
+<div class="left-area">
+<?php 
+//show currency header block
+$block = module_invoke('currency_header', 'block_view', 'currency_header_block');
+print render($block['content']);
+?>
+
+<div class="top-menu">
+	<?php global $user; if ($user->uid > 0){ print l('Log out', 'user/logout');  print(' | <a href="/user/'.$user->uid .' ">My account</a>');} ?>
+</div>
+<div class="my-cart-wrap">
+	<div class="title"><a href="/cart" class="">Your<br /><span>Cart</span></a></div>
+	<div class="my-cart">
+		<a href="/cart" class='items-count'><?php print $itemCount; ?> items <br> $<?php print $totalPrice; ?></a>
+		<a href="/checkout" class="checkout">Checkout</a>
+	</div>
+</div>
+<div class="bottom-wrap clearfix">
+<div class='header-shipping-message hide-on-desktop hide-on-tab'>* Free shipping on most orders over $200 inside Canada & USA <span class='heading-shipping-smaller'>(excluding HI & AK)</span></div> 
+<div class="mobile-cart hide-on-tab hide-on-desktop">
+<a href="/cart"><i class="icon icon-shopping-cart icon-2x"></i> <span class="count"><?php print $itemCount; ?></span></a>
+</div>
+<div class="search-bar">
+    <?php   
+$block = module_invoke('search', 'block_view');
+print render($block['content']);
+
+//$skusearch= module_invoke('views', 'block_view', '-exp-advanced_search-page');
+$skusearch= module_invoke('views', 'block_view', '-exp-Search_by_SKU-page');
+print render($skusearch['content']);
+?>
+<br/>
+<div class='header-shipping-message hide-on-mob'>* Free shipping on most orders <br/> over $200 inside Canada & USA <span class='heading-shipping-smaller'>(excluding HI & AK)</span></div> 
+</div>
+
+</div>
+
+
+</div>
+<!--
+<div class='header-shipping-message hide-on-mob'>* Free shipping on most orders over $200 inside Canada & USA <span class='heading-shipping-smaller'>(excluding HI & AK)</span></div> 
+-->
+
+<!-- <div class='fs-banner-wrapper'>
+    <div class='fs-banner-inner'><img src='/sites/default/files/fs-banner.png' class='fs-banner' /></div> 
+</div>
+-->
+
+<!--  Hiding jump menus -->
+<!--  
+<div class="jump-menu jump-menu-first">
+<?php
+// jump_menu($menu, $parent, $btn = FALSE, $maxDepth = 0, $choose = 'Select Now')
+if (module_exists('jump_menu')) {
+  echo jump_menu('main-menu', 2, FALSE, 0, 'Menu');
+}
+?>
+
+</div>
+<div class="jump-menu">
+<?php
+// jump_menu($menu, $parent, $btn = FALSE, $maxDepth = 0, $choose = 'Select Now')
+if (module_exists('jump_menu')) {
+  echo jump_menu('menu-categories-menu', 2, FALSE, 0, 'Browse Products');
+}
+?>
+
+-->
+<!--
+<div class="mobile-cart">
+<a href="/cart"><i class="icon icon-shopping-cart"></i> <span class="count"><?php print $itemCount; ?></span></a>
+
+-->
+
+</div>
+</div>
+
+
+<style>
+.pi-row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.pi-row:before,
+.pi-row:after {
+  content: " ";
+  display: table;
+}
+.pi-row:after {
+  clear: both;
+}
+@media (max-width: 319px) {
+  .pi-row {
+    margin-left: -7.5px;
+    margin-right: -7.5px;
+  }
+}
+.pi-col-md-4 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .pi-col-md-4{
+    float: left;
+  }
+}
+@media (min-width: 992px) {
+	.pi-col-md-8 {
+    width: 66.66666666666666%;
+  	}
+  	.pi-col-md-4 {
+	    width: 50%;
+	  }
+	}
+	.pi-col-md-4 {
+	    width: 33.33333333333333%;
+	  }
+	}
+	.pi-col-md-2 {
+	    width: 16.666666666666664%;
+	  }
+	}
+</style>
+
+
+<div class="pi-row">
+	<div class="pi-col-md-2"><a href="/" rel="home"><img src="/sites/all/themes/menzies/img/logo-2x.png" alt="Menzies Metal Logo" /></a></div>
+	<div class="pi-col-md-8">
+		<div class="row">
+			<div class="pi-col-md-6"><a class="phone" href="tel:18006658840"><i class="icon icon-phone"></i> 1-800-665-8840</a></div>
+			<div class="pi-col-md-6"><a class="email" href="/contact-us">Contact Us</a></div>
+		</div>
+		<?php  print theme('nice_menus_main_menu'); ?></div>
+	<div class="pi-col-md-2">
+		<div class="top-menu">
+			<?php global $user; if ($user->uid > 0){ print l('Log out', 'user/logout');  print(' | <a href="/user/'.$user->uid .' ">My account</a>');} ?>
+		</div>
+		<div class="my-cart-wrap">
+			<div class="title"><a href="/cart" class="">Your<br /><span>Cart</span></a></div>
+			<div class="my-cart">
+				<a href="/cart" class='items-count'><?php print $itemCount; ?> items <br> $<?php print $totalPrice; ?></a>
+				<a href="/checkout" class="checkout">Checkout</a>
+			</div>
+		</div>
+		<div class='header-shipping-message hide-on-desktop hide-on-tab'>* Free shipping on most orders over $200 inside Canada & USA <span class='heading-shipping-smaller'>(excluding HI & AK)</span></div> 
+		<div class="mobile-cart hide-on-tab hide-on-desktop">
+			<a href="/cart"><i class="icon icon-shopping-cart icon-2x"></i> <span class="count"><?php print $itemCount; ?></span></a>
+		</div>
+		<div class="search-bar">
+			<?php   
+			$block = module_invoke('search', 'block_view');
+			print render($block['content']);
+
+			//$skusearch= module_invoke('views', 'block_view', '-exp-advanced_search-page');
+			$skusearch= module_invoke('views', 'block_view', '-exp-Search_by_SKU-page');
+			print render($skusearch['content']);
+			?>
+			<div class='header-shipping-message hide-on-mob'>* Free shipping on most orders <br/> over $200 inside Canada & USA <span class='heading-shipping-smaller'>(excluding HI & AK)</span></div> 
+		</div>
+	</div>
+</div>

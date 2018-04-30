@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700,900');
+
 .datepicker_background{
 	background: #868686;
 	width: 100%;
@@ -7,15 +9,18 @@
 	left: 0;
 	font-family:"Roboto","Helvetica","Arial",sans-serif;
 	font-weight: 300;
+	z-index: 8000;
+	position: fixed;
 }
 
 .datepicker_wrapper{
 	position: relative;
 	width: 300px;
-	height: 450px;
+	height: 600px;
 	margin: auto;
 	padding: auto;
 	background: #fff;
+	top: 20%;
 }
 .datepicker_top_wrapper{
 	background: #f06187;
@@ -34,7 +39,9 @@
 	border: none;
 	font-size: 40pt;
 	width: 165px;
+	min-width: 165px;
 	font-weight: 900;
+	margin: auto;
 }
 .datepicker_day_wrapper{
 	margin: 0px 20px;
@@ -46,7 +53,6 @@
 	width: 60%;
 	text-align: center;
 	vertical-align: middle;
-	margin: 5% 0;
 }
 .datepicker_day_number{
 	font-size: 40pt;
@@ -121,10 +127,6 @@
   position: absolute;
   background-color: #ffffff;
   color: #000000;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
   font-size:15px;
 }
 .datepicker_wrapper .active span{

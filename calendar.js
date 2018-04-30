@@ -39,7 +39,7 @@ var datepicker_ui_control = function(options){
         startDateInput = $(options.startDateInput);
         endDateInput = $(options.endDateInput);
 
-//        minDate = (options.minDate == null) ? new Date():new Date(options.minDate);
+        minDate = new Date();
 //        maxDate = (options.maxDate == null) ? new Date():new Date(options.maxDate);
         currentDate = new Date();
         currentYear = new Date().getFullYear();
@@ -172,6 +172,8 @@ var datepicker_ui_control = function(options){
     };
 
     var selectDate = function(tmpDate , day){
+        if(tmpDate < minDate){ 
+            return false;}
         if(step == 0){
             $(startCtrl).removeClass("active");
             startDate = tmpDate;
@@ -190,32 +192,15 @@ var datepicker_ui_control = function(options){
         if (step == 2) { step=0;};
     };
 
-    this.showControl = function(){
+    this.showControl = function(startDate , endDate){
+        startDateInput = $(startDate);
+        endDateInput = $(endDate);
          $(".datepicker_background").slideDown();
     }
 
     var closeControl = function(){
         $(".datepicker_background").slideUp();   
     }
- 
-    /*
-     * Public method
-     * Can be called outside class
-     */
-    this.myPublicMethod = function(){
-        console.log(vars.myVar);
- 
-        myPrivateMethod();
-    };
- 
-    /*
-     * Private method
-     * Can only be called inside class
-     */
-    var myPrivateMethod = function() {
-        console.log('accessed private method');
-    };
- 
  
     /*
      * Pass options when class instantiated
